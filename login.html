@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ورود به حساب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <!-- اضافه کردن کتابخانه آیکون Font Awesome با تگ اصلاح شده -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-image: url('./IMG_9419.JPG');
+      background-color: #12151a;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Vazirmatn', sans-serif;
+    }
+
+    .glass-card {
+      width: 350px;
+      padding: 40px;
+      border-radius: 40px;
+      background: rgba(0, 0, 0, 0.25);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(2px) saturate(150%);
+      -webkit-backdrop-filter: blur(2px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: white;
+      position: relative;
+      overflow: hidden;
+      text-shadow: 0 8 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .glass-card::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(
+        circle at center,
+        rgba(255, 255, 255, 0.15),
+        transparent 50%
+      );
+      transform: rotate(0deg);
+      animation: moveLight 15s infinite linear;
+    }
+
+    @keyframes moveLight {
+      0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+      }
+      50% {
+        transform: translate(50%, 50%) rotate(180deg);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+      }
+    }
+    
+    .form-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-container h2 {
+      margin-top: 0;
+      margin-bottom: 30px;
+      font-size: 2rem;
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+    
+    .input-group .icon {
+      position: absolute;
+      top: 50%;
+      left: 15px;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.7);
+      pointer-events: none;
+      text-shadow: none;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 12px 15px 12px 45px; 
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 35px;
+      color: #fff;
+      font-size: 1rem;
+      font-family: 'Vazirmatn', sans-serif;
+      transition: background 0.3s, border 0.3s;
+      text-shadow: none;
+    }
+
+    .input-group input::placeholder {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .input-group input:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+    
+    .input-group input:focus + .icon {
+        color: #fff;
+    }
+
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      border-radius: 35px;
+      color: rgb(0, 0, 0);
+      font-size: 1.1rem;
+      font-weight: bold;
+      font-family: 'Vazirmatn', sans-serif;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+      margin-top: 10px;
+      background: rgb(255, 255, 255);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .login-button:hover {
+      background: rgba(0, 0, 0, 0.6);
+      transform: translateY(-2px);
+      color: #fff;
+    }
+    
+    .login-button:active {
+      transform: translateY(0);
+    }
+    
+    /* استایل برای پیام خطا */
+    .error-message {
+        color: #ffffff;
+        background-color: rgba(255, 0, 0, 0.603);
+        border: 1px solid rgba(255, 77, 77, 0.671);
+        padding: 12px;
+        border-radius: 35px;
+        text-align: center;
+        margin-top: 15px;
+        display: none; /* در ابتدا مخفی باشد */
+    }
+
+  </style>
+</head>
+<body>
+  <div class="glass-card">
+    <div class="form-container">
+      <h2>ورود به حساب</h2>
+      <form id="login-form">
+        <div class="input-group">
+          <i class="fas fa-user icon"></i>
+          <input type="text" id="username" placeholder="نام کاربری یا ایمیل" required />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-lock icon"></i>
+          <input type="password" id="password" placeholder="رمز عبور" required />
+        </div>
+        <button type="submit" class="login-button">ورود</button>
+        <!-- المان برای نمایش پیام خطا -->
+        <div id="error-message" class="error-message">نام کاربری یا رمز عبور اشتباه است.</div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    // انتخاب المان‌های مورد نیاز از DOM
+    const loginForm = document.getElementById('login-form');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const errorMessage = document.getElementById('error-message');
+
+    // اضافه کردن event listener برای رویداد submit فرم
+    loginForm.addEventListener('submit', function(event) {
+      // جلوگیری از رفتار پیش‌فرض فرم (که ارسال و رفرش صفحه است)
+      event.preventDefault();
+
+      // گرفتن مقادیر وارد شده توسط کاربر
+      const username = usernameInput.value;
+      const password = passwordInput.value;
+
+      // بررسی صحت نام کاربری و رمز عبور
+      if (username === 'amir' && password === '1234') {
+        // در صورت موفقیت‌آمیز بودن ورود، به صفحه index.html هدایت شو
+        window.location.href = 'index.html';
+      } else {
+        // در صورت اشتباه بودن اطلاعات، پیام خطا را نمایش بده
+        errorMessage.style.display = 'block';
+      }
+    });
+  </script>
+
+</body>
+</html>

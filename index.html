@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تور مجازی شهر بروجرد</title>
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-image: url('./back.jpg'); /* A placeholder for your background */
+      background-color: #333;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      min-height: 100vh;
+      font-family: 'Vazirmatn', sans-serif;
+      color: white;
+      overflow-x: hidden; /* جلوگیری از اسکرول افقی */
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+
+    /* --- نوار ناوبری شیشه‌ای --- */
+    .glass-nav {
+      width: 95%;
+      max-width: 1400px;
+      margin: 20px auto;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      
+      background: rgba(0, 0, 0, 0.25);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-radius: 30px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 100;
+    }
+
+    .nav-section {
+        display: flex;
+        align-items: center;
+        gap: 25px;
+    }
+
+    .logo-container span {
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .main-nav ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .main-nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .main-nav ul li a:hover {
+      color: #ccc;
+    }
+
+    .icons-nav a {
+        color: white;
+        font-size: 1.4rem;
+        transition: color 0.3s, transform 0.3s;
+    }
+    
+    .icons-nav a:hover {
+        color: #ddd;
+        transform: scale(1.1);
+    }
+
+    .menu-toggle-btn {
+        display: none; /* در حالت دسکتاپ مخفی است */
+        cursor: pointer;
+    }
+
+    /* --- محتوای اصلی مرکزی --- */
+    .hero-section {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-section p {
+      font-size: 1.5rem;
+      font-weight: 400;
+      color: #ffbb00;
+      margin-bottom: 40px;
+      /* افزایش سایه برای خوانایی بیشتر */
+      text-shadow: 0 3px 12px rgba(0, 0, 0, 0.8);
+    }
+
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .top-buttons {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .glass-btn {
+        padding: 12px 35px;
+        font-size: 1.2rem; 
+        font-family: 'Vazirmatn', sans-serif;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        border-radius: 35px;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+    }
+
+    .glass-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-3px);
+    }
+    
+    .glass-btn.primary {
+        background: rgba(255, 255, 255, 0.2);
+        border-width: 2px;
+    }
+
+    /* --- New Search Button Styles --- */
+    .search-btn {
+        background: #ffbb00; /* Brighter green */
+        border-color: #ffbb00;
+        color: black;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 30px;
+        /* Glow effect */
+        box-shadow: 0 0 8px #ffbb00 0 0 16px #ffbb00;
+    }
+
+    .search-btn:hover {
+        background: #ffbb00; /* Even brighter on hover */
+        transform: scale(1.05) translateY(-3px);
+        /* Enhanced glow on hover */
+        box-shadow: 0 0 15px #ffbb00, 0 0 30px #ffbb00;
+    }
+
+    .search-btn i {
+        font-size: 1.1rem;
+    }
+
+
+    /* --- منوی موبایل شیشه‌ای مدرن --- */
+    .mobile-menu-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    
+    .mobile-menu-container.show {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .mobile-menu-window {
+        position: relative;
+        width: 90%;
+        max-width: 400px;
+        padding: 60px 30px 40px;
+        background: rgba(20, 20, 20, 0.5);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        border-radius: 35px; 
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transform: scale(0.95);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .mobile-menu-container.show .mobile-menu-window {
+        transform: scale(1);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 15px;
+        left: 20px;
+        color: white;
+        font-size: 2.5rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.3s;
+    }
+    
+    .close-btn:hover {
+        transform: rotate(90deg);
+    }
+
+    .mobile-main-nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: center;
+    }
+
+    .mobile-main-nav ul li {
+        margin: 25px 0;
+    }
+
+    .mobile-main-nav ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 1.8rem;
+        font-weight: 700;
+        transition: color 0.3s;
+    }
+
+    .mobile-main-nav ul li a:hover {
+        color: #ffbb00;
+    }
+
+
+    /* --- طراحی واکنش‌گرا --- */
+    @media (max-width: 992px) {
+        .main-nav {
+            display: none;
+        }
+        .menu-toggle-btn {
+            display: block;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero-section h1 {
+            font-size: 2.5rem;
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+        }
+        .top-buttons {
+            flex-direction: row;
+            gap: 15px;
+        }
+        .glass-btn {
+            padding: 12px 28px;
+            font-size: 1.1rem;
+        }
+        .logo-container span {
+            font-size: 1rem;
+        }
+        .glass-nav {
+            padding: 15px 20px;
+        }
+    }
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- نوار ناوبری -->
+  <header class="glass-nav">
+    <div class="nav-section logo-container">
+        <span>Borujerd 360</span>
+    </div>
+    <nav class="nav-section main-nav">
+      <ul>
+        <li><a href="./places.html">دیدنی ها</a></li>
+        <li><a href="#">وبلاگ</a></li>
+        <li><a href="./contact.html">درباره ما</a></li>
+      </ul>
+    </nav>
+    <div class="nav-section icons-nav">
+        <a href="./login.html" aria-label="حساب کاربری"><i class="fas fa-user"></i></a>
+        <a href="#" id="menu-toggle" class="menu-toggle-btn" aria-label="منو"><i class="fas fa-bars"></i></a>
+    </div>
+  </header>
+
+  <!-- محتوای اصلی -->
+  <main class="hero-section">
+    <h1>تور مجازی شهر بروجرد</h1>
+    <p>Virtual tour 360 of Borujerd city</p>
+    <div class="button-container">
+        <div class="top-buttons">
+            <a href="https://tour.borujerd360.ir/borujerd/" class="glass-btn primary">ورود به تور ۳۶۰</a>
+            <a href="#" class="glass-btn">نقشه شهر</a>
+        </div>
+        <a href="./places.html" class="glass-btn search-btn">
+            <i class="fas fa-search"></i>
+            <span>جستجوی مکان ها</span>
+        </a>
+    </div>
+  </main>
+</div>
+
+<!-- منوی پاپ‌آپ شیشه‌ای موبایل -->
+<div id="mobile-menu" class="mobile-menu-container">
+    <div class="mobile-menu-window">
+        <a href="#" id="close-menu" class="close-btn">&times;</a>
+        <nav class="mobile-main-nav">
+          <ul>
+            <li><a href="./places.html">دیدنی ها</a></li>
+            <li><a href="#">وبلاگ</a></li>
+            <li><a href="./contact.html">درباره ما</a></li>
+          </ul>
+        </nav>
+    </div>
+</div>
+
+<script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenu = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileMenu.classList.add('show');
+    });
+
+    closeMenu.addEventListener('click', function(e) {
+        e.preventDefault();
+        mobileMenu.classList.remove('show');
+    });
+
+    mobileMenu.addEventListener('click', function(e) {
+        if (e.target === this) {
+            mobileMenu.classList.remove('show');
+        }
+    });
+</script>
+
+</body>
+</html>
